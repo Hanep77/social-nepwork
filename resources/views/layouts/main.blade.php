@@ -11,6 +11,8 @@
 
 <body class="bg-gradient-to-r from-indigo-500 via-sky-600 to-emerald-700">
     @yield('container')
+
+    <script src="script.js"></script>
 </body>
 
 </html>

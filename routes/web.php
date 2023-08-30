@@ -18,11 +18,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PostController::class, 'index']);
-Route::get('/post/create', [PostController::class, 'create']);
-Route::get('/post/{post}', [PostController::class, 'show']);
 
-Route::get('/login', [LoginController::class, 'index']);
-Route::get('/register', [RegisterController::class, 'index']);
+Route::middleware(['guest'])->group(function () {
+    Route::get('/register', [RegisterController::class, 'index']);
+    Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/user/{user}', [UserController::class, 'index']);
-Route::get('/search', [UserController::class, 'search']);
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/logout', [LoginController::class, 'logout']);
+
+    Route::get('/post/create', [PostController::class, 'create']);
+    Route::get('/post/{post}', [PostController::class, 'show']);
+
+    Route::get('/user/{user:username}', [UserController::class, 'index']);
+    Route::get('/search', [UserController::class, 'search']);
+});

@@ -10,4 +10,14 @@ class Post extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    function getTimeAgoAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
+    function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [LoginController::class, 'logout']);
 
     Route::get('/post/create', [PostController::class, 'create']);
+    Route::post('/post/store', [PostController::class, 'store']);
     Route::get('/post/{post}', [PostController::class, 'show']);
 
     Route::get('/user/{user:username}', [UserController::class, 'index']);

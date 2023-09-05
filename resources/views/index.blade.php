@@ -16,10 +16,15 @@
                         </div>
                     </div>
                     <p class="text-gray-800">{{ $post->content }}</p>
-                    <h6 class="font-semibold mt-2">101 likes 8 comments</h6>
+                    <h6 class="font-semibold mt-2">101 likes
+                        @if (count($post->comments) > 0)
+                            <span>{{ count($post->comments) }} Comments</span>
+                        @endif
+                    </h6>
                     <div class="flex justify-evenly mt-4">
                         <button class="text-gray-500 hover:underline"><i class="bi bi-hand-thumbs-up"></i></button>
-                        <button class="text-gray-500 hover:underline"><i class="bi bi-chat"></i></button>
+                        <a href="/post/{{ $post->id }}" class="text-gray-500 hover:underline"><i
+                                class="bi bi-chat"></i></a>
                     </div>
                 </div>
             @endforeach

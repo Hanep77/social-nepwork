@@ -14,9 +14,11 @@ class PostController extends Controller
         ]);
     }
 
-    public function show()
+    public function show(Post $post)
     {
-        return view('detailpost');
+        return view('detailpost', [
+            'post' => $post
+        ]);
     }
 
     public function create()

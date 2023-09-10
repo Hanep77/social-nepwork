@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
@@ -39,4 +40,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/user/{user:username}', [UserController::class, 'index']);
     Route::get('/search', [UserController::class, 'search']);
+
+    Route::post('/like', [LikeController::class, 'store']);
+    Route::post('/isLiked', [LikeController::class, 'isLiked']);
 });

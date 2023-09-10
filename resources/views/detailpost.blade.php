@@ -26,7 +26,7 @@
 
     <main class="flex items-center">
         <div class="container max-w-xl mx-auto">
-            <div class="backdrop-blur bg-white bg-opacity-80 shadow-md pt-4 px-4 pb-1 mb-4">
+            <div class="backdrop-blur bg-white bg-opacity-80 shadow-md pt-4 px-4 pb-1 mb-4 post-{{ $post->id }}">
                 <!-- Konten Postingan -->
                 <div class="flex items-center mb-4 relative">
                     <img src="../img/profile.avif" alt="Profile Image" class="w-10 h-10 rounded-full mr-2">
@@ -36,9 +36,24 @@
                     </div>
                 </div>
                 <p class="text-gray-800">{{ $post->content }}</p>
-                <h6 class="font-semibold mt-2">101 likes 8 comments</h6>
+                <h6 class="font-semibold mt-2">
+                    @if (count($post->likes) > 0)
+                        <span class="likeTotal">{{ count($post->likes) }}</span><span> Likes</span>
+                    @endif
+                    @if (count($post->comments) > 0)
+                        <span>{{ count($post->comments) }} Comments</span>
+                    @endif
+                </h6>
                 <div class="flex justify-evenly mt-4 mb-2">
-                    <button class="text-gray-500 hover:underline"><i class="bi bi-hand-thumbs-up"></i></button>
+                    @if (count(App\Models\Like::isLiked($post->id, auth()->user()->id)) > 0)
+                        <button class="text-gray-500 hover:underline"
+                            onclick="likeToggle({{ $post->id }}, {{ auth()->user()->id }})"><i
+                                class="bi bi-hand-thumbs-up-fill"></i></button>
+                    @else
+                        <button class="text-gray-500 hover:underline"
+                            onclick="likeToggle({{ $post->id }}, {{ auth()->user()->id }})"><i
+                                class="bi bi-hand-thumbs-up"></i></button>
+                    @endif
                     <button class="text-gray-500 hover:underline"><i class="bi bi-chat"></i></button>
                 </div>
 
